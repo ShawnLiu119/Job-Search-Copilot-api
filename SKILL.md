@@ -1,6 +1,6 @@
 ---
 name: job-search-copilot
-description: Find and rank suitable jobs from a resume and optional job keywords, confirm geographic and remote-work preferences before sourcing, create a truthful job-specific resume for every shortlisted role, identify 3–5 relevant networking prospects at target companies, and draft personalized informational-interview outreach. Use when Codex needs to run a one-time or recurring job-search workflow, compare a resume with job postings, adapt resumes for ATS relevance, research LinkedIn networking contacts, or prepare connection notes and emails without automatically applying or sending messages. Supports PDF and DOCX resumes and resume-first discovery when the user provides no keywords.
+description: Find and rank suitable jobs from a PDF or DOCX resume and optional keywords, scan and repair weak or non-standard resume formatting, create a clean one-page ATS-safe job-specific resume for every shortlisted role, identify 3–5 relevant networking prospects, and draft personalized informational-interview outreach. Use for one-time or recurring job searches, resume-to-job matching, layout normalization, resume tailoring, LinkedIn networking research, or outreach drafting without automatically applying or sending messages. Supports resume-first discovery when the user provides no keywords.
 ---
 
 # Job Search Copilot
@@ -13,7 +13,9 @@ Run a traceable, human-in-the-loop job search. Require only a resume; treat job 
 2. Choose an output root supplied by the user. Otherwise use `job-search-workspace/` in the current workspace.
 3. Run `scripts/init_workspace.py --root <root> --resume <resume>`. Add each explicit keyword with `--keyword`. Re-running must preserve ledgers and prior outputs.
 4. Read `references/data-model.md` before writing or updating state.
-5. Use the PDF or Documents skill to extract the resume while preserving the source file. Keep all resume and contact data local unless the user authorizes another destination.
+5. Use the PDF skill for PDF inputs or the Documents skill for DOCX inputs to extract and render the resume while preserving the source file. Keep all resume and contact data local unless the user authorizes another destination.
+6. Read `references/resume-formatting.md`. Run its source-format preflight before using the resume as a layout template. Save the result to `source/resume-format-report.md` and record `pass` or `normalize` in `config.json`.
+7. If the source requires normalization, rebuild a canonical one-page resume as `source/normalized-resume.docx` and/or `source/normalized-resume.pdf`. Preserve all factual source evidence and the original master resume; never overwrite either one. Render, inspect, and revise the normalized version until it passes every acceptance gate in the formatting reference.
 
 ## Build the search profile
 
@@ -57,7 +59,7 @@ For every component, cite the relevant job requirement and resume evidence. Labe
 
 ## Tailor the resume
 
-Create a separate resume version for every shortlisted job. Never use one generic tailored resume for several postings. Preserve the master resume unchanged and retain the original file type when practical.
+Create a separate one-page resume version for every shortlisted job. Never use one generic tailored resume for several postings. Preserve the master resume unchanged. Use the verified canonical layout when the source format was normalized; do not propagate a broken source layout into tailored files.
 
 Allowed edits:
 
@@ -71,14 +73,16 @@ Never fabricate employment, dates, titles, responsibilities, tools, credentials,
 For each shortlisted job:
 
 1. Extract that posting's distinct required skills, responsibilities, seniority signals, industry language, and repeated ATS terms.
-2. Create a dedicated resume whose headline, summary, skill ordering, and bullet ordering/wording respond to that posting's evidence.
-3. Save it as `tailored-resumes/<company>__<role>__<native-id>.<ext>` using filesystem-safe slugs.
-4. Save a companion `tailored-resumes/<company>__<role>__<native-id>__changes.md` containing original text, revised text, job requirement addressed, evidence basis, and risk.
-5. Reopen and verify the output, then mark only that job `tailored`.
+2. Create a dedicated resume whose headline, summary, skill ordering, and bullet ordering/wording respond to that posting's evidence. Start from the canonical content and layout, not from another tailored variant.
+3. Enforce the one-page content budget in `references/resume-formatting.md`: prioritize recent, relevant, evidence-rich material; compress or omit low-relevance detail without creating gaps in employment chronology or changing facts.
+4. Save it as `tailored-resumes/<company>__<role>__<native-id>.<ext>` using filesystem-safe slugs.
+5. Save a companion `tailored-resumes/<company>__<role>__<native-id>__changes.md` containing original text, revised text, job requirement addressed, evidence basis, risk, and any content omitted only to meet the one-page budget.
+6. Run both verification layers: structured/ATS extraction order and visual render inspection. Require exactly one page, clean section hierarchy, readable type, consistent spacing, no overlap or clipping, and no unsupported claims.
+7. Revise and re-render until every gate passes. Mark only that job `tailored` after the final file is reopened and verified.
 
 Do not satisfy this requirement by copying the same file under different names. Each resume must contain material, evidence-backed differences tied to its job description. If no truthful change is available for a section, preserve it and say so in the change log.
 
-Use the Documents skill for every DOCX variant's rendering and verification; use the PDF skill for every PDF variant's rendering and inspection. Return a manifest mapping each job URL to its resume and change log.
+Use the Documents skill for every DOCX variant's rendering and verification; use the PDF skill for every PDF variant's rendering and inspection. When delivering PDF, keep the verified DOCX as an editable local working file when practical. Return a manifest mapping each job URL to its resume, change log, page count, and format-QA result.
 
 ## Find networking prospects
 

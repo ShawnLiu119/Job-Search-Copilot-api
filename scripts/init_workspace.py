@@ -66,6 +66,7 @@ def main() -> None:
     normalized_keywords = list(dict.fromkeys(k.strip() for k in args.keyword if k.strip()))
     if config_path.exists():
         config = json.loads(config_path.read_text(encoding="utf-8"))
+        config["schema_version"] = 2
         existing = config.get("keywords", [])
         config["keywords"] = list(dict.fromkeys([*existing, *normalized_keywords]))
         preferences = config.setdefault("preferences", {})
@@ -78,16 +79,31 @@ def main() -> None:
         preferences.setdefault("salary", None)
         preferences.setdefault("work_authorization", "unknown")
         preferences.setdefault("sponsorship_required", "unknown")
+        formatting = config.setdefault("resume_formatting", {})
+        formatting.setdefault("source_format_status", "unscanned")
+        formatting.setdefault("format_report_path", "source/resume-format-report.md")
+        formatting.setdefault("normalized_docx_path", None)
+        formatting.setdefault("normalized_pdf_path", None)
+        formatting.setdefault("one_page_required", True)
+        formatting.setdefault("verified_at", None)
         config["updated_at"] = now
     else:
         config = {
-            "schema_version": 1,
+            "schema_version": 2,
             "resume": {
                 "path": str(target.relative_to(root)),
                 "sha256": incoming_hash,
             },
             "keywords": normalized_keywords,
             "inferred_role_families": [],
+            "resume_formatting": {
+                "source_format_status": "unscanned",
+                "format_report_path": "source/resume-format-report.md",
+                "normalized_docx_path": None,
+                "normalized_pdf_path": None,
+                "one_page_required": True,
+                "verified_at": None,
+            },
             "preferences": {
                 "locations": [],
                 "work_arrangements": [],

@@ -4,7 +4,8 @@ A human-in-the-loop Codex skill for a traceable job-search workflow:
 
 - discover and rank roles from a resume and optional keywords;
 - confirm location, remote-work, and relocation preferences before sourcing;
-- create a truthful, job-specific resume for every shortlisted role;
+- scan and normalize weak or non-standard resume layouts;
+- create a truthful, clean one-page resume for every shortlisted role;
 - identify relevant networking prospects; and
 - draft LinkedIn and informational-interview outreach without sending it.
 
@@ -19,7 +20,8 @@ The repository contains the reusable workflow definition, data model, matching a
 ├── references/
 │   ├── data-model.md
 │   ├── match-and-tailor.md
-│   └── outreach.md
+│   ├── outreach.md
+│   └── resume-formatting.md
 └── scripts/init_workspace.py
 ```
 
@@ -35,6 +37,8 @@ python3 scripts/init_workspace.py \
 ```
 
 The command creates a resumable local workspace and preserves the master resume. Before sourcing jobs, the workflow requires confirmation of allowed locations, accepted work arrangements, and relocation willingness.
+
+Before tailoring, the skill renders and scans the source layout. A weak, multi-column, table-based, image-only, clipped, or inconsistently formatted resume is rebuilt as a canonical one-page ATS-safe resume. Every job-specific variant must then pass both text-order and rendered-page quality gates.
 
 ## Privacy and safety
 
