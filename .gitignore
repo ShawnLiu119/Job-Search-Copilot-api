@@ -7,9 +7,20 @@ __pycache__/
 job-search-workspace/
 outputs/
 work/
+job-descriptions/
+tailored-resumes/
+outreach/
+runs/
 *.pdf
 *.docx
 *.jsonl
+
+# Defensive patterns for candidate and networking data
+contacts.jsonl
+jobs.jsonl
+*-networking-*.md
+*-outreach-*.md
+*job-search-result*.md
 
 # Local configuration and credentials
 .env
