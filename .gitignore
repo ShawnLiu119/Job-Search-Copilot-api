@@ -1,0 +1,17 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+
+# Local job-search data and generated artifacts
+job-search-workspace/
+outputs/
+work/
+*.pdf
+*.docx
+*.jsonl
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
