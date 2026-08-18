@@ -1,4 +1,4 @@
 interface:
   display_name: "Job Search Copilot"
-  short_description: "Match jobs and create clean one-page tailored resumes"
-  default_prompt: "Use $job-search-copilot to scan my resume format, find suitable roles, create a clean one-page tailored resume for each shortlisted job, and prepare networking outreach."
+  short_description: "Match jobs, tailor resumes, and prepare interviews"
+  default_prompt: "Use $job-search-copilot to find suitable roles, create a clean one-page tailored resume for each shortlisted job, prepare networking outreach, and draft five role-specific mock interview questions."

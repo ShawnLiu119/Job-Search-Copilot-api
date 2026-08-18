@@ -45,6 +45,7 @@ def main() -> None:
         root / "job-descriptions",
         root / "tailored-resumes",
         root / "outreach",
+        root / "interview-prep",
         root / "runs",
     ):
         directory.mkdir(parents=True, exist_ok=True)
@@ -66,7 +67,7 @@ def main() -> None:
     normalized_keywords = list(dict.fromkeys(k.strip() for k in args.keyword if k.strip()))
     if config_path.exists():
         config = json.loads(config_path.read_text(encoding="utf-8"))
-        config["schema_version"] = 2
+        config["schema_version"] = 3
         existing = config.get("keywords", [])
         config["keywords"] = list(dict.fromkeys([*existing, *normalized_keywords]))
         preferences = config.setdefault("preferences", {})
@@ -89,7 +90,7 @@ def main() -> None:
         config["updated_at"] = now
     else:
         config = {
-            "schema_version": 2,
+            "schema_version": 3,
             "resume": {
                 "path": str(target.relative_to(root)),
                 "sha256": incoming_hash,

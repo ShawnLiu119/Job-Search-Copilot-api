@@ -1,6 +1,6 @@
 ---
 name: job-search-copilot
-description: Find and rank suitable jobs from a PDF or DOCX resume and optional keywords, scan and repair weak or non-standard resume formatting, create a clean one-page ATS-safe job-specific resume for every shortlisted role, identify 3–5 relevant networking prospects, and draft personalized informational-interview outreach. Use for one-time or recurring job searches, resume-to-job matching, layout normalization, resume tailoring, LinkedIn networking research, or outreach drafting without automatically applying or sending messages. Supports resume-first discovery when the user provides no keywords.
+description: Find and rank suitable jobs from a PDF or DOCX resume and optional keywords, scan and repair weak resume formatting, create a clean one-page ATS-safe job-specific resume for every shortlisted role, identify 3–5 networking prospects, draft outreach, and generate five evidence-backed mock interview questions per role from the job description, company sources, and public interview history. Use for job searches, resume matching and tailoring, layout normalization, networking research, outreach drafting, or role-specific interview preparation without automatically applying or sending messages.
 ---
 
 # Job Search Copilot
@@ -108,9 +108,17 @@ Ask for 15–20 minutes and seek perspective, not a referral or job. Use one spe
 
 Save all drafts for review. Do not send them.
 
+## Prepare mock interviews
+
+For every shortlisted role, read `references/mock-interviews.md` and create exactly five role-specific mock interview questions. Research the current job description, official company material, and publicly accessible historical interview reports. Use web research because company priorities and interview processes can change.
+
+Save one file per role as `interview-prep/<company>__<role>__<native-id>.md`. Include the question, competency tested, evidence basis with source links, what a strong answer should demonstrate, and the candidate's truthful resume evidence that may support an answer. Keep questions distinct and tailored; do not reuse the same five-question set across companies.
+
+Treat candidate-reported interview history as directional and unverified. Never claim that a historical question will appear in the current interview, reproduce proprietary question banks, bypass sign-in or paywalls, or fabricate a company-specific interview pattern when evidence is unavailable.
+
 ## Finish each run
 
-Write a run summary containing search queries, sources checked, new and duplicate counts, blockers, ranked jobs, tailored files, suggested contacts, draft locations, and recommended next actions. Include source links beside claims.
+Write a run summary containing search queries, sources checked, new and duplicate counts, blockers, ranked jobs, tailored files, suggested contacts, outreach drafts, mock-interview files, and recommended next actions. Include source links beside claims.
 
 For recurring operation, reuse the workspace ledgers and process only new or materially changed postings. If the user explicitly asks to schedule the workflow but provides no cadence, propose Monday/Wednesday/Friday at 9:00 AM local time. Create or change an automation only after the user authorizes scheduling.
 

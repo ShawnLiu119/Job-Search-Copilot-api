@@ -16,6 +16,7 @@ job-search-workspace/
 ├── job-descriptions/
 ├── tailored-resumes/
 ├── outreach/
+├── interview-prep/
 └── runs/
 ```
 
@@ -25,7 +26,7 @@ Keep these keys stable:
 
 ```json
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "resume": {"path": "source/master-resume.ext", "sha256": "..."},
   "resume_formatting": {
     "source_format_status": "unscanned",
@@ -64,7 +65,7 @@ Write one JSON object per observation. Use `job_key` for de-duplication and reta
 
 Required fields: `job_key`, `observed_at`, `source`, `native_id`, `url`, `company`, `title`, `location`, `posted_at`, `description_path`, `status`, `blockers`, `score`, `score_breakdown`, `resume_evidence`, `gaps`, and `run_id`.
 
-For every `tailored` job, also record `tailored_resume_path`, `change_log_path`, `page_count`, and `format_qa_status`. Require `page_count: 1` and `format_qa_status: "pass"`. The files must be job-specific rather than aliases of another role's output.
+For every `tailored` job, also record `tailored_resume_path`, `change_log_path`, `page_count`, and `format_qa_status`. Require `page_count: 1` and `format_qa_status: "pass"`. After interview preparation, also record `mock_interview_path`, `mock_interview_question_count: 5`, `mock_interview_sources`, and `mock_interview_prepared_at`. The files must be job-specific rather than aliases of another role's output.
 
 Allowed status progression: `discovered`, `shortlisted`, `tailored`, `approved`, `applied`, `declined`, `closed`. Never mark `applied` without user confirmation.
 
@@ -84,4 +85,5 @@ Use `runs/YYYY-MM-DDTHHMMSSZ/summary.md` and include:
 4. Ranked jobs with evidence and gaps
 5. Tailored outputs and change logs
 6. Contacts and outreach drafts
-7. Errors, access restrictions, and next actions
+7. Mock-interview files and source coverage
+8. Errors, access restrictions, and next actions
