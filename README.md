@@ -12,6 +12,10 @@ A human-in-the-loop Codex skill for a traceable job-search workflow:
 
 The repository contains the reusable workflow definition, data model, matching and tailoring rules, outreach guidance, and a local workspace initializer. It intentionally excludes real resumes, job-search ledgers, tailored outputs, and contact data.
 
+## User input
+
+Upload your existing resume in PDF or DOCX format. This is the only required starting file. Job-title keywords are optional; when none are provided, the workflow derives suitable role families from the resume.
+
 ## Repository layout
 
 ```text
